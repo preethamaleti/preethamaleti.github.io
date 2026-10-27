@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aleti Sai Preetham Reddy — Software Engineering Intern at Armour AI & Final-year B.Tech (AI & ML) at Neil Gogte Institute of Technology. Building Agentic AI, RAG Pipelines, and Production Systems.">
+  <meta name="keywords" content="Aleti Sai Preetham Reddy, Generative AI, RAG Pipelines, Agentic AI, Neil Gogte Institute of Technology, Armour AI, Portfolio, Linux Terminal">
+  <meta name="author" content="Aleti Sai Preetham Reddy">
+  <meta name="theme-color" content="#000000">
+  <title>Aleti Sai Preetham Reddy | AI & Software Engineer</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #030303;
+      --surface: #0a0a0a;
+      --surface2: #121212;
+      --surface3: #181818;
+      --panel-bg: rgba(10, 10, 10, 0.95);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --border-strong: rgba(255, 255, 255, 0.25);
+      
+      --accent: #ffffff;
+      --accent-dim: rgba(255, 255, 255, 0.1);
+      --accent-glow: rgba(255, 255, 255, 0.05);
+      --accent2: #94a3b8;
+      --accent2-dim: rgba(148, 163, 184, 0.1);
+      
+      --terminal-green: #86efac;
+      --terminal-cyan: #7dd3fc;
+      --terminal-yellow: #fde047;
+      --terminal-red: #fca5a5;
+      --terminal-purple: #c084fc;
+      --terminal-prompt: #86efac;
+      --terminal-orange: #fdba74;
+      
+      --text: #ffffff;
+      --text2: #a1a1aa;
+      --text3: #71717a;
+      --muted: #3f3f46;
+      
+      --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+      
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 14px;
+      --space-lg: 20px;
+      --space-xl: 28px;
+      --space-2xl: 40px;
+      --space-3xl: 56px;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      overflow: hidden;
+    }
+
+    ::selection {
+      background: rgba(134, 239, 172, 0.25);
+      color: #ffffff;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    /* Two-Panel Layout */
+    .portfolio-layout {
+      display: grid;
+      grid-template-columns: 53fr 47fr;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    /* Left Panel: Content Document */
+    .left-panel {
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: var(--space-2xl) var(--space-2xl) var(--space-3xl);
+      background: radial-gradient(circle at 10% 20%, rgba(20, 20, 20, 0.4) 0%, transparent 60%);
+      scroll-behavior: smooth;
+    }
+
+    .left-panel__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xl);
+    }
+
+    /* Header Profile */
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: var(--space-2xl);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      padding: 5px 12px;
+      background: rgba(134, 239, 172, 0.06);
+      border: 1px solid rgba(134, 239, 172, 0.2);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--terminal-green);
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--terminal-green);
+      box-shadow: 0 0 10px var(--terminal-green);
+      animation: blink-dot 2s infinite ease-in-out;
+    }
+
+    @keyframes blink-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.02));
+      flex-shrink: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #111;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .profile-header h1 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text2);
+    }
+
+    .profile-location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+
+    .profile-location i {
+      color: var(--terminal-green);
+      font-size: 11px;
+    }
+
+    .profile-bio {
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.65;
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 2px solid var(--terminal-green);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-top: 4px;
+    }
+
+    .profile-bio strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Actions & Social Bar */
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text2);
+    }
+
+    .btn-action:hover {
+      background: var(--surface3);
+      color: #ffffff;
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-action--primary {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 600;
+    }
+    .btn-action--primary:hover {
+      background: #e4e4e7;
+      color: #000000;
+      border-color: #e4e4e7;
+    }
+
+    .btn-action--terminal {
+      background: rgba(134, 239, 172, 0.08);
+      color: var(--terminal-green);
+      border-color: rgba(134, 239, 172, 0.25);
+    }
+    .btn-action--terminal:hover {
+      background: rgba(134, 239, 172, 0.16);
+      color: #ffffff;
+      border-color: var(--terminal-green);
+    }
+
+    /* Metric Stats Strip */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: var(--space-md);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .stat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-val {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .stat-val.highlight {
+      color: var(--terminal-green);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text3);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Section Headers */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-heading-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--terminal-green);
+      font-weight: 500;
+      background: rgba(134, 239, 172, 0.08);
+      border: 1px solid rgba(134, 239, 172, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Experience Timeline */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .timeline-item {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .timeline-item:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+      transform: translateY(-1px);
+    }
+
+    .timeline-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: var(--space-md);
+    }
+
+    .timeline-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .timeline-company {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--terminal-green);
+      font-weight: 600;
+    }
+
+    .timeline-period {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timeline-bullet {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .timeline-bullet::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--terminal-green);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text3);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      position: relative;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-card.featured {
+      border-color: rgba(134, 239, 172, 0.25);
+      background: linear-gradient(180deg, rgba(134, 239, 172, 0.03) 0%, var(--surface) 100%);
+    }
+
+    .project-card.featured:hover {
+      border-color: rgba(134, 239, 172, 0.45);
+    }
+
+    .project-card__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .project-badge-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--terminal-cyan);
+      background: rgba(125, 211, 252, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .project-badge-pill.ai {
+      color: var(--terminal-green);
+      background: rgba(134, 239, 172, 0.08);
+      border-color: rgba(134, 239, 172, 0.2);
+    }
+
+    .project-badge-pill.hackathon {
+      color: var(--terminal-yellow);
+      background: rgba(253, 224, 71, 0.08);
+      border-color: rgba(253, 224, 71, 0.2);
+    }
+
+    .project-badge-pill.featured-tag {
+      color: var(--terminal-purple);
+      background: rgba(192, 132, 252, 0.08);
+      border-color: rgba(192, 132, 252, 0.2);
+    }
+
+    .project-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-link-icon {
+      color: var(--text3);
+      font-size: 14px;
+      transition: color var(--transition-fast);
+      text-decoration: none;
+    }
+    .project-link-icon:hover {
+      color: #ffffff;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .project-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .project-bullet {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.55;
+    }
+
+    .project-bullet::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--terminal-cyan);
+      font-weight: bold;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: var(--space-xs);
+    }
+
+    .stack-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text3);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .project-cli-trigger {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      cursor: pointer;
+      width: fit-content;
+      transition: color var(--transition-fast);
+    }
+    .project-cli-trigger:hover {
+      color: var(--terminal-green);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+    }
+
+    .skill-category-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--terminal-green);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text2);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 5px;
+      transition: all var(--transition-fast);
+    }
+
+    .skill-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: var(--border-hover);
+    }
+
+    /* Education & Achievements Cards */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .info-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+    }
+
+    .info-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .info-card-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .info-card-period {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .info-card-sub {
+      font-size: 13.5px;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+
+    .info-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+      flex-wrap: wrap;
+    }
+
+    .highlight-pill {
+      color: var(--terminal-green);
+      font-weight: 600;
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .contact-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .contact-item:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+      transform: translateY(-1px);
+    }
+
+    .contact-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .contact-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--terminal-green);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-val {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-btn {
+      color: var(--text3);
+      font-size: 12px;
+      padding: 6px;
+      border-radius: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+    .copy-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Right Panel: Interactive Linux Terminal */
+    .right-panel {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #000000;
+      border-left: 1px solid var(--panel-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* CRT scanline effect */
+    .terminal-scanlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 3px;
+      z-index: 10;
+      opacity: 0.45;
+    }
+
+    /* Terminal Top Bar */
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #0a0a0a;
+      border-bottom: 1px solid var(--panel-border);
+      z-index: 20;
+    }
+
+    .window-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .control-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .control-dot:hover {
+      opacity: 0.8;
+    }
+    .control-dot.close { background: #ff5f56; border: 1px solid #e0443e; }
+    .control-dot.minimize { background: #ffbd2e; border: 1px solid #dea123; }
+    .control-dot.maximize { background: #27c93f; border: 1px solid #1aab29; }
+
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+
+    .terminal-title i {
+      color: var(--terminal-green);
+      font-size: 11px;
+    }
+
+    .terminal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .term-tool-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text3);
+      padding: 3px 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all var(--transition-fast);
+    }
+    .term-tool-btn:hover {
+      color: #ffffff;
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Quick Action Pills */
+    .terminal-quick-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #080808;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      overflow-x: auto;
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .terminal-quick-bar::-webkit-scrollbar {
+      height: 2px;
+    }
+
+    .cmd-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .cmd-pill:hover {
+      background: rgba(134, 239, 172, 0.08);
+      color: var(--terminal-green);
+      border-color: rgba(134, 239, 172, 0.3);
+    }
+
+    /* Terminal Body & Scrollback */
+    .terminal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #d4d4d8;
+      z-index: 20;
+      scroll-behavior: smooth;
+    }
+
+    .term-line {
+      margin-bottom: 3px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .term-line.prompt-line {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: var(--terminal-prompt);
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    .term-prompt-symbol {
+      color: var(--terminal-prompt);
+      font-weight: bold;
+    }
+
+    .term-prompt-user {
+      color: var(--terminal-cyan);
+    }
+
+    .term-prompt-path {
+      color: var(--terminal-yellow);
+    }
+
+    .term-cmd-text {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .term-line.output {
+      color: #d4d4d8;
+    }
+
+    .term-line.success {
+      color: var(--terminal-green);
+    }
+
+    .term-line.info {
+      color: var(--terminal-cyan);
+    }
+
+    .term-line.warning {
+      color: var(--terminal-yellow);
+    }
+
+    .term-line.error {
+      color: var(--terminal-red);
+    }
+
+    .term-line.header {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .term-line.muted {
+      color: var(--text3);
+    }
+
+    .term-line a {
+      color: var(--terminal-cyan);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .term-line a:hover {
+      color: #ffffff;
+    }
+
+    /* Terminal Interactive Input Row */
+    .terminal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      background: #080808;
+      border-top: 1px solid var(--panel-border);
+      z-index: 20;
+    }
+
+    .term-input-prompt {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #ffffff;
+      caret-color: var(--terminal-prompt);
+    }
+
+    /* Toast Notification */
+    .toast-popup {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #18181b;
+      border: 1px solid var(--terminal-green);
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-popup.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Mobile switcher bar (visible <= 968px) */
+    .mobile-tab-bar {
+      display: none;
+    }
+
+    /* Responsive Breakdown */
+    @media (max-width: 968px) {
+      body, html {
+        overflow: auto;
+        height: auto;
+      }
+      .portfolio-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+      .left-panel {
+        height: auto;
+        overflow: visible;
+        padding: var(--space-xl) var(--space-md);
+      }
+      .right-panel {
+        height: 620px;
+        border-left: none;
+        border-top: 1px solid var(--panel-border);
+      }
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="portfolio-layout">
+    
+    <!-- LEFT PANEL: CURATED DOSSIER / RESUME DOCUMENT -->
+    <div class="left-panel" id="leftPanel">
+      <div class="left-panel__inner">
+        
+        <!-- Header Profile -->
+        <header class="profile-header" id="about">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>AVAILABLE FOR GENERATIVE AI &amp; BACKEND ROLES</span>
+          </div>
+
+          <div class="profile-top">
+            <div class="avatar-wrapper">
+              <img src="https://avatars.githubusercontent.com/u/185084561?v=4" alt="Aleti Sai Preetham Reddy" class="avatar-img">
+            </div>
+            <div class="profile-title-group">
+              <h1>ALETI SAI PREETHAM REDDY</h1>
+              <div class="profile-role">Software Engineering Intern &amp; Generative AI Builder</div>
+              <div class="profile-location">
+                <i class="fas fa-location-dot"></i>
+                <span>Hyderabad, India • +91 9390887167</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Summary (exact from user resume) -->
+          <div class="profile-bio">
+            Final-year B.Tech Computer Science (AI &amp; Machine Learning) student and Software Engineering Intern building agentic workflow platforms, Generative AI applications, Retrieval-Augmented Generation (RAG) pipelines, and backend REST APIs. Experienced across the SDLC: designing modules, debugging, documentation, and Agile collaboration using Git/GitHub, Docker, and CI/CD. Strong foundation in data structures, algorithms, and object-oriented design. Seeking a Generative AI / Software Engineer role building production-grade AI applications.
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="profile-actions">
+            <a href="https://www.linkedin.com/in/preetham-aleti/" target="_blank" rel="noopener" class="btn-action">
+              <i class="fab fa-linkedin" style="color: #0a66c2;"></i> LinkedIn
+            </a>
+            <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="btn-action">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://leetcode.com/u/y9QOkam4dO/" target="_blank" rel="noopener" class="btn-action">
+              <i class="fas fa-code" style="color: #ffa116;"></i> LeetCode
+            </a>
+            <a href="mailto:preethamaleti2005@gmail.com" class="btn-action">
+              <i class="fas fa-envelope"></i> Email
+            </a>
+            <button class="btn-action btn-action--terminal" onclick="runInteractiveCommand('cat resume.txt')">
+              <i class="fas fa-terminal"></i> View in Terminal
+            </button>
+          </div>
+        </header>
+
+        <!-- Stats Strip -->
+        <div class="stats-strip">
+          <div class="stat-box">
+            <div class="stat-val highlight">9.03</div>
+            <div class="stat-label">B.Tech CGPA (NGIT)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val highlight">200+</div>
+            <div class="stat-label">LeetCode Solved</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">May 2026</div>
+            <div class="stat-label">Intern @ Armour AI</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">Finalist</div>
+            <div class="stat-label">Technovate Hackathon</div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE SECTION -->
+        <section class="experience-section" id="experience">
+          <div class="section-heading">
+            <span>Professional Experience</span>
+            <span class="section-heading-badge">1 Role</span>
+          </div>
+
+          <div class="experience-list">
+            <div class="timeline-item">
+              <div class="timeline-header">
+                <div class="timeline-title-row">
+                  <div class="timeline-role">Software Engineering Intern</div>
+                  <div class="timeline-period">May 2026 – Present</div>
+                </div>
+                <div class="timeline-company">Armour AI • Hyderabad, India</div>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li class="timeline-bullet">
+                  Building an agentic workflow management platform that lets businesses configure workflows for lead management and banking/loan processing, with a dedicated application automatically generated around each workflow.
+                </li>
+                <li class="timeline-bullet">
+                  Developed backend services and REST APIs for workflow execution, node configuration, and orchestration logic, integrating LLMs with embedding-based retrieval and context injection to improve grounding and task accuracy.
+                </li>
+                <li class="timeline-bullet">
+                  Diagnosed and resolved workflow execution failures through root-cause analysis, improving pipeline reliability and output correctness.
+                </li>
+              </ul>
+
+              <div class="timeline-tags">
+                <span class="timeline-tag">Agentic AI</span>
+                <span class="timeline-tag">Workflow Orchestration</span>
+                <span class="timeline-tag">FastAPI</span>
+                <span class="timeline-tag">LLM Integration</span>
+                <span class="timeline-tag">Embedding Retrieval</span>
+                <span class="timeline-tag">REST APIs</span>
+                <span class="timeline-tag">Root-Cause Analysis</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJECTS SECTION (AI PROJECTS TOP!) -->
+        <section class="projects-section" id="projects">
+          <div class="section-heading">
+            <span>Technical Projects</span>
+            <span class="section-heading-badge">AI Projects Ranked First</span>
+          </div>
+
+          <div class="projects-grid">
+            
+            <!-- 1. Hybrid RAG System (AI / Featured) -->
+            <div class="project-card featured">
+              <div class="project-card__top">
+                <div class="project-badge-pill ai">Generative AI / RAG</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Hybrid RAG System</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Built a production-style RAG service combining dense vector search (Qdrant) with BM25 keyword search, merged using Reciprocal Rank Fusion and refined by cross-encoder reranking to improve retrieval precision and deliver grounded LLM responses.
+                </li>
+                <li class="project-bullet">
+                  Implemented PDF ingestion with page-level chunking and metadata/source filtering; exposed ingest, ask, and streaming-ask FastAPI endpoints with real-time streamed responses via Ollama.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">FastAPI</span>
+                <span class="stack-tag">Qdrant</span>
+                <span class="stack-tag">Sentence-Transformers</span>
+                <span class="stack-tag">BM25</span>
+                <span class="stack-tag">Ollama</span>
+                <span class="stack-tag">Cross-Encoder</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/hybrid-rag.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/hybrid-rag.md</span>
+              </div>
+            </div>
+
+            <!-- 2. Scene Solver: AI-Powered Crime Scene Analysis -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill ai">Computer Vision / Multimodal AI</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Scene Solver: AI-Powered Crime Scene Analysis</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Architected a multimodal backend pipeline integrating BLIP and CLIP to automate scene classification, image captioning, and evidence extraction, with a structured report-generation module.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">BLIP</span>
+                <span class="stack-tag">CLIP</span>
+                <span class="stack-tag">Vision Transformers</span>
+                <span class="stack-tag">OpenCV</span>
+                <span class="stack-tag">PyTorch</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/scene-solver.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/scene-solver.md</span>
+              </div>
+            </div>
+
+            <!-- 3. Vision-to-Story Generator -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill hackathon">Technovate Hackathon Finalist</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Vision-to-Story Generator</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Developed a multimodal pipeline combining BLIP image captioning with a lightweight LLM to generate coherent narrative stories from images.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">BLIP</span>
+                <span class="stack-tag">Lightweight LLM</span>
+                <span class="stack-tag">Multimodal AI</span>
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">HuggingFace</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/vision-to-story.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/vision-to-story.md</span>
+              </div>
+            </div>
+
+            <!-- 4. NuclearGPT: Domain-Specific Scientific LLM -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill ai">Scientific NLP / Fine-Tuning</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">NuclearGPT: Domain-Specific Scientific LLM</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Fine-tuned a transformer-based LLM on structured, preprocessed nuclear-domain datasets to improve domain-specific text generation quality.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">Transformer Models</span>
+                <span class="stack-tag">Scientific NLP</span>
+                <span class="stack-tag">PyTorch</span>
+                <span class="stack-tag">Domain Datasets</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/nucleargpt.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/nucleargpt.md</span>
+              </div>
+            </div>
+
+            <!-- 5. Synapse: Cognitive Workspace -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill featured-tag">Agentic AI &amp; Neural Workspace</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Synapse: Cognitive AI Workspace</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Neural interface &amp; workspace connecting thoughts, contextual notes, and documents through vector search and dynamic LLM reasoning graphs.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">FastAPI</span>
+                <span class="stack-tag">Embeddings</span>
+                <span class="stack-tag">Knowledge Graphs</span>
+                <span class="stack-tag">LLM Integration</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/synapse.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/synapse.md</span>
+              </div>
+            </div>
+
+            <!-- 6. LanShare: Offline LAN File Sharing Platform -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill">High-Performance Networking</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti/LanShare" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">LanShare: Offline LAN File Sharing Platform</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Built a full-stack offline file-sharing app with real-time messaging, host-controlled authentication, and an admin dashboard.
+                </li>
+                <li class="project-bullet">
+                  Implemented secure chunked file transfer with integrity verification; achieved 128+ MB/s transfer speed, 0 ms message latency, and 100% connection success.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">React.js</span>
+                <span class="stack-tag">Node.js</span>
+                <span class="stack-tag">Express.js</span>
+                <span class="stack-tag">SQLite</span>
+                <span class="stack-tag">Socket.IO</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/lanshare.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/lanshare.md</span>
+              </div>
+            </div>
+
+            <!-- 7. Ukusa: Contemporary African Art Platform -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill">Live Production Web App</div>
+                <div class="project-links">
+                  <a href="https://ukusa.netlify.app/#gallery" target="_blank" rel="noopener" class="project-link-icon" title="Live Site">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="https://github.com/preethamaleti/ukusa" target="_blank" rel="noopener" class="project-link-icon" title="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Ukusa: Contemporary African Art Platform</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Interactive exhibition portal showcasing contemporary African artists, dynamic gallery filters, responsive layout, and visual cultural storytelling.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">JavaScript (ES6+)</span>
+                <span class="stack-tag">CSS3</span>
+                <span class="stack-tag">HTML5</span>
+                <span class="stack-tag">Netlify</span>
+              </div>
+              <div class="project-cli-trigger" onclick="window.open('https://ukusa.netlify.app/#gallery', '_blank')">
+                <i class="fas fa-arrow-up-right-from-square"></i> <span>Visit ukusa.netlify.app/#gallery</span>
+              </div>
+            </div>
+
+            <!-- 8. FINCTRL AI (finance-controller) -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill">Financial Analytics</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti/finance-controller" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">FINCTRL AI: Intelligent Finance Controller</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Personal finance dashboard with automated expense categorization, spending anomaly alerts, and interactive budget analytics.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">React.js</span>
+                <span class="stack-tag">Node.js</span>
+                <span class="stack-tag">Express.js</span>
+                <span class="stack-tag">SQLite</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/finctrl.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/finctrl.md</span>
+              </div>
+            </div>
+
+            <!-- 9. Vehicle Service Management System -->
+            <div class="project-card">
+              <div class="project-card__top">
+                <div class="project-badge-pill">Enterprise Backend</div>
+                <div class="project-links">
+                  <a href="https://github.com/preethamaleti/Vehicle-Service-Management-System" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">Vehicle Service Management System</h3>
+              <ul class="project-bullets">
+                <li class="project-bullet">
+                  Enterprise backend managing vehicle repair tracking, automated maintenance alerts, service scheduling, and customer billing workflows.
+                </li>
+              </ul>
+              <div class="project-stack">
+                <span class="stack-tag">Java</span>
+                <span class="stack-tag">Spring Boot</span>
+                <span class="stack-tag">MySQL</span>
+                <span class="stack-tag">REST APIs</span>
+              </div>
+              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/vehicle-service.md')">
+                <i class="fas fa-terminal"></i> <span>cat projects/vehicle-service.md</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- TECHNICAL SKILLS (EXACT RESUME CATEGORIES) -->
+        <section class="skills-section" id="skills">
+          <div class="section-heading">
+            <span>Technical Skills</span>
+            <span class="section-heading-badge">Exact Categories</span>
+          </div>
+
+          <div class="skills-grid">
+            
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-microchip"></i> Generative AI / RAG</div>
+              <div class="skill-pills">
+                <span class="skill-pill">RAG Pipelines</span>
+                <span class="skill-pill">Agentic AI</span>
+                <span class="skill-pill">LLM Integration</span>
+                <span class="skill-pill">Workflow Orchestration</span>
+                <span class="skill-pill">Prompt Engineering</span>
+                <span class="skill-pill">Vector Databases (Qdrant)</span>
+                <span class="skill-pill">Embeddings</span>
+                <span class="skill-pill">Hybrid Search (Dense + BM25)</span>
+                <span class="skill-pill">Reciprocal Rank Fusion</span>
+                <span class="skill-pill">CrossEncoder Reranking</span>
+                <span class="skill-pill">Ollama</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-brain"></i> AI / ML</div>
+              <div class="skill-pills">
+                <span class="skill-pill">PyTorch</span>
+                <span class="skill-pill">TensorFlow</span>
+                <span class="skill-pill">Keras</span>
+                <span class="skill-pill">Sentence-Transformers</span>
+                <span class="skill-pill">OpenCV</span>
+                <span class="skill-pill">BLIP</span>
+                <span class="skill-pill">CLIP</span>
+                <span class="skill-pill">Computer Vision</span>
+                <span class="skill-pill">NLP</span>
+                <span class="skill-pill">Multimodal AI</span>
+                <span class="skill-pill">Deep Learning</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-code"></i> Languages</div>
+              <div class="skill-pills">
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">Java</span>
+                <span class="skill-pill">C</span>
+                <span class="skill-pill">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-server"></i> Backend &amp; APIs</div>
+              <div class="skill-pills">
+                <span class="skill-pill">FastAPI</span>
+                <span class="skill-pill">Flask</span>
+                <span class="skill-pill">Node.js</span>
+                <span class="skill-pill">Express.js</span>
+                <span class="skill-pill">Spring Boot</span>
+                <span class="skill-pill">REST APIs</span>
+                <span class="skill-pill">Microservices</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-database"></i> Frontend &amp; Databases</div>
+              <div class="skill-pills">
+                <span class="skill-pill">React.js</span>
+                <span class="skill-pill">Socket.IO</span>
+                <span class="skill-pill">MongoDB</span>
+                <span class="skill-pill">SQLite</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-gears"></i> DevOps &amp; Tools</div>
+              <div class="skill-pills">
+                <span class="skill-pill">Git</span>
+                <span class="skill-pill">GitHub</span>
+                <span class="skill-pill">Docker</span>
+                <span class="skill-pill">CI/CD</span>
+                <span class="skill-pill">Agile/SDLC</span>
+                <span class="skill-pill">Technical Documentation</span>
+                <span class="skill-pill">Code Reviews</span>
+                <span class="skill-pill">Root-Cause Analysis</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-category-title"><i class="fas fa-cubes"></i> Core CS</div>
+              <div class="skill-pills">
+                <span class="skill-pill">Data Structures &amp; Algorithms</span>
+                <span class="skill-pill">Object-Oriented Programming</span>
+                <span class="skill-pill">DBMS</span>
+                <span class="skill-pill">Operating Systems</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- EDUCATION (EXACT DETAILS) -->
+        <section class="education-section" id="education">
+          <div class="section-heading">
+            <span>Education</span>
+            <span class="section-heading-badge">Academic Track</span>
+          </div>
+
+          <div class="card-list">
+            <!-- College -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-title">Neil Gogte Institute of Technology, Hyderabad</div>
+                <div class="info-card-period">2023 – 2027</div>
+              </div>
+              <div class="info-card-sub">Bachelor of Technology, Artificial Intelligence and Machine Learning</div>
+              <div class="info-card-meta">
+                <span>Hyderabad, India</span>
+                <span>•</span>
+                <span class="highlight-pill">CGPA: 9.03 / 10.0</span>
+              </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-title">Narayana Junior College</div>
+                <div class="info-card-period">2021 – 2023</div>
+              </div>
+              <div class="info-card-sub">Intermediate (TSBIE - MPC)</div>
+              <div class="info-card-meta">
+                <span>Hyderabad, India</span>
+                <span>•</span>
+                <span class="highlight-pill">Score: 97.1%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACHIEVEMENTS & CERTIFICATIONS (EXACT DETAILS) -->
+        <section class="achievements-section" id="achievements">
+          <div class="section-heading">
+            <span>Achievements &amp; Certifications</span>
+            <span class="section-heading-badge">Verified Honors</span>
+          </div>
+
+          <div class="card-list">
+            
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-title">Finalist, Technovate Hackathon</div>
+              </div>
+              <div class="info-card-sub">Vision-to-Story Generator (Multimodal AI)</div>
+              <div class="info-card-meta">
+                <span>Engineered a multimodal pipeline pairing BLIP image captioning with a lightweight LLM to synthesize narrative stories.</span>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-title">Solved 200+ Problems on LeetCode</div>
+                <div class="info-card-period"><a href="https://leetcode.com/u/y9QOkam4dO/" target="_blank" rel="noopener" style="color: var(--terminal-cyan); text-decoration: none;">Profile ↗</a></div>
+              </div>
+              <div class="info-card-sub">Demonstrating strong data structures and algorithms proficiency</div>
+              <div class="info-card-meta">
+                <span>Graphs, Dynamic Programming, Trees, Binary Search, and Two Pointers.</span>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-title">Professional Certifications</div>
+                <div class="info-card-period">Verified</div>
+              </div>
+              <ul class="timeline-bullets" style="margin-top: 6px;">
+                <li class="timeline-bullet"><strong>NPTEL Machine Learning</strong></li>
+                <li class="timeline-bullet"><strong>NPTEL Programming, Data Structures and Algorithms using Python</strong></li>
+                <li class="timeline-bullet"><strong>Advanced Learning Algorithms</strong> — DeepLearning.AI</li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact-section" id="contact">
+          <div class="section-heading">
+            <span>Connect &amp; Contact</span>
+            <span class="section-heading-badge">Available for Work</span>
+          </div>
+
+          <div class="contact-grid">
+            
+            <!-- Email -->
+            <div class="contact-item" onclick="copyToClipboard('preethamaleti2005@gmail.com', 'Email copied to clipboard!')">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">Email</span>
+                  <span class="contact-val">preethamaleti2005@gmail.com</span>
+                </div>
+              </div>
+              <button class="copy-btn" title="Copy Email"><i class="fas fa-copy"></i></button>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-item" onclick="copyToClipboard('+91 9390887167', 'Phone number copied!')">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">Phone</span>
+                  <span class="contact-val">+91 9390887167</span>
+                </div>
+              </div>
+              <button class="copy-btn" title="Copy Phone"><i class="fas fa-copy"></i></button>
+            </div>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/preetham-aleti/" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fab fa-linkedin" style="color: #0a66c2;"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-val">linkedin.com/in/preetham-aleti</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt" style="font-size: 11px; color: var(--text3);"></i>
+            </a>
+
+            <!-- LeetCode -->
+            <a href="https://leetcode.com/u/y9QOkam4dO/" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fas fa-code" style="color: #ffa116;"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">LeetCode</span>
+                  <span class="contact-val">leetcode.com/u/y9QOkam4dO</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt" style="font-size: 11px; color: var(--text3);"></i>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/preethamaleti" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">GitHub</span>
+                  <span class="contact-val">github.com/preethamaleti</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt" style="font-size: 11px; color: var(--text3);"></i>
+            </a>
+
+            <!-- Ukusa Live -->
+            <a href="https://ukusa.netlify.app/#gallery" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item-left">
+                <div class="contact-icon"><i class="fas fa-palette" style="color: #f43f5e;"></i></div>
+                <div class="contact-info">
+                  <span class="contact-label">Ukusa Exhibition</span>
+                  <span class="contact-val">ukusa.netlify.app/#gallery</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt" style="font-size: 11px; color: var(--text3);"></i>
+            </a>
+
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="padding-top: var(--space-xl); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--text3); flex-wrap: wrap; gap: 8px;">
+          <div>© 2026 ALETI SAI PREETHAM REDDY • ALL RIGHTS RESERVED</div>
+          <div>BUILT WITH LINUX TERMINAL THEME • NGIT 2027</div>
+        </footer>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: INTERACTIVE LINUX TERMINAL -->
+    <div class="right-panel">
+      
+      <!-- CRT scanline effect -->
+      <div class="terminal-scanlines"></div>
+
+      <!-- Terminal Top Bar -->
+      <div class="terminal-header">
+        <div class="window-controls">
+          <span class="control-dot close" onclick="clearTerminalBuffer()" title="Clear Buffer"></span>
+          <span class="control-dot minimize" onclick="toggleCRT()" title="Toggle Scanline FX"></span>
+          <span class="control-dot maximize" onclick="cycleTerminalTheme()" title="Cycle Terminal Color"></span>
+        </div>
+        <div class="terminal-title">
+          <i class="fas fa-terminal"></i>
+          <span>guest@preetham-aleti: ~ (bash)</span>
+        </div>
+        <div class="terminal-actions">
+          <button class="term-tool-btn" onclick="cycleTerminalTheme()" title="Switch theme accent">
+            <i class="fas fa-palette"></i> <span>Theme</span>
+          </button>
+          <button class="term-tool-btn" onclick="clearTerminalBuffer()" title="Clear terminal">
+            <i class="fas fa-trash-alt"></i> <span>Clear</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Command Bar -->
+      <div class="terminal-quick-bar">
+        <span class="cmd-pill" onclick="runInteractiveCommand('help')">help</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('neofetch')">neofetch</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('projects')">projects</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('skills')">skills</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('experience')">experience</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('education')">education</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('achievements')">achievements</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('cat resume.txt')">cat resume.txt</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('sudo hire-me')">sudo hire-me</span>
+        <span class="cmd-pill" onclick="runInteractiveCommand('clear')">clear</span>
+      </div>
+
+      <!-- Terminal Scrollback Output -->
+      <div class="terminal-body" id="terminalBody" onclick="focusTerminalInput()">
+        <!-- Initial Welcome Banner -->
+      </div>
+
+      <!-- Terminal Input Row -->
+      <div class="terminal-input-row" onclick="focusTerminalInput()">
+        <div class="term-input-prompt">
+          <span class="term-prompt-user">preetham</span><span style="color: #71717a;">@</span><span class="term-prompt-user">ngit</span><span style="color: #71717a;">:</span><span class="term-prompt-path">~</span><span class="term-prompt-symbol">$</span>
+        </div>
+        <input 
+          type="text" 
+          id="terminalInput" 
+          class="terminal-input" 
+          autocomplete="off" 
+          spellcheck="false" 
+          placeholder="type 'help', 'neofetch', or 'projects'..." 
+          autofocus
+        />
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-popup">
+    <i class="fas fa-check-circle" style="color: var(--terminal-green);"></i>
+    <span id="toastMsg">Copied!</span>
+  </div>
+
+  <script>
+    const terminalBody = document.getElementById('terminalBody');
+    const terminalInput = document.getElementById('terminalInput');
+    const leftPanel = document.getElementById('leftPanel');
+
+    // Command History & Autocomplete State
+    let commandHistory = [];
+    let historyIndex = -1;
+
+    // Terminal Themes
+    const terminalThemes = ['#86efac', '#7dd3fc', '#fde047', '#c084fc', '#fdba74', '#fca5a5'];
+    let themeIdx = 0;
+
+    function cycleTerminalTheme() {
+      themeIdx = (themeIdx + 1) % terminalThemes.length;
+      const newColor = terminalThemes[themeIdx];
+      document.documentElement.style.setProperty('--terminal-prompt', newColor);
+      appendLines([
+        { text: `[SYSTEM] Switched terminal theme accent to ${newColor}`, type: 'success' },
+        { text: '', type: 'empty' }
+      ]);
+    }
+
+    function toggleCRT() {
+      const scanlines = document.querySelector('.terminal-scanlines');
+      if (scanlines) {
+        scanlines.style.display = scanlines.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Terminal Command Definitions
+    const commands = {
+      help: {
+        desc: 'Show available terminal commands',
+        handler: () => [
+          { text: '╭─ Available Commands ──────────────────────────────────────────', type: 'header' },
+          { text: '', type: 'empty' },
+          { text: '│  help           Show this interactive help manual', type: 'output' },
+          { text: '│  neofetch       Render system specs, hardware & AI environment', type: 'output' },
+          { text: '│  about          Display biographical summary & background', type: 'output' },
+          { text: '│  skills         Show exact categorized tech stack & tools', type: 'output' },
+          { text: '│  projects       List technical AI & software projects', type: 'output' },
+          { text: '│  experience     Show internship experience at Armour AI', type: 'output' },
+          { text: '│  education      Show Neil Gogte Institute of Tech & CGPA', type: 'output' },
+          { text: '│  achievements   Show LeetCode 200+ & Hackathon honors', type: 'output' },
+          { text: '│  contact        Show email, phone, location & profiles', type: 'output' },
+          { text: '│  ls             List virtual filesystem directory contents', type: 'output' },
+          { text: '│  cat <file>     Display contents of a specified file', type: 'output' },
+          { text: '│  whoami         Print current active user info', type: 'output' },
+          { text: '│  pwd            Print current working directory', type: 'output' },
+          { text: '│  date           Show current system date and timestamp', type: 'output' },
+          { text: '│  theme          Cycle terminal prompt color accent', type: 'output' },
+          { text: '│  clear          Purge terminal scrollback buffer', type: 'output' },
+          { text: '│  sudo hire-me   Unlock career offer letter & direct line', type: 'output' },
+          { text: '', type: 'empty' },
+          { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+          { text: '  Tip: Click quick pills above or use ↑/↓ for history & Tab for autocomplete.', type: 'muted' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      about: {
+        desc: 'About Aleti Sai Preetham Reddy',
+        handler: () => {
+          scrollToSection('about');
+          return [
+            { text: '╭─ About Profile ───────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ Name         ALETI SAI PREETHAM REDDY', type: 'success' },
+            { text: '│ Role         Final-Year B.Tech (AI & ML) & Software Engineering Intern', type: 'output' },
+            { text: '│ College      Neil Gogte Institute of Technology, Hyderabad (CGPA: 9.03)', type: 'output' },
+            { text: '│ Current      Armour AI (Software Engineering Intern, May 2026 – Present)', type: 'output' },
+            { text: '│ Location     Hyderabad, India', type: 'output' },
+            { text: '│ Phone        +91 9390887167', type: 'output' },
+            { text: '│ Email        preethamaleti2005@gmail.com', type: 'output' },
+            { text: '│ LinkedIn     https://www.linkedin.com/in/preetham-aleti/', type: 'info' },
+            { text: '│ GitHub       https://github.com/preethamaleti', type: 'info' },
+            { text: '│ LeetCode     https://leetcode.com/u/y9QOkam4dO/ (200+ Solved)', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '│ Professional Summary:', type: 'header' },
+            { text: '│ Final-year B.Tech Computer Science (AI & Machine Learning) student and', type: 'output' },
+            { text: '│ Software Engineering Intern building agentic workflow platforms, Generative AI', type: 'output' },
+            { text: '│ applications, Retrieval-Augmented Generation (RAG) pipelines, and backend', type: 'output' },
+            { text: '│ REST APIs. Strong foundation in data structures, algorithms, and OOP.', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      experience: {
+        desc: 'Industry experience at Armour AI',
+        handler: () => {
+          scrollToSection('experience');
+          return [
+            { text: '╭─ Professional Experience ─────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ Role         Software Engineering Intern', type: 'success' },
+            { text: '│ Company      Armour AI • Hyderabad, India', type: 'output' },
+            { text: '│ Duration     May 2026 – Present', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '│ Key Contributions:', type: 'header' },
+            { text: '│ • Building an agentic workflow management platform that lets businesses', type: 'output' },
+            { text: '│   configure workflows for lead management and banking/loan processing,', type: 'output' },
+            { text: '│   with a dedicated application automatically generated around each workflow.', type: 'output' },
+            { text: '│ • Developed backend services and REST APIs for workflow execution, node', type: 'output' },
+            { text: '│   configuration, and orchestration logic, integrating LLMs with embedding-based', type: 'output' },
+            { text: '│   retrieval and context injection to improve grounding and task accuracy.', type: 'output' },
+            { text: '│ • Diagnosed and resolved workflow execution failures through root-cause analysis,', type: 'output' },
+            { text: '│   improving pipeline reliability and output correctness.', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+      exp: { handler: () => commands.experience.handler() },
+
+      education: {
+        desc: 'Education & academics',
+        handler: () => {
+          scrollToSection('education');
+          return [
+            { text: '╭─ Education & Academics ───────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ 1. Neil Gogte Institute of Technology, Hyderabad', type: 'success' },
+            { text: '│    Degree:    Bachelor of Technology in Artificial Intelligence & ML', type: 'output' },
+            { text: '│    Timeline:  2023 – 2027', type: 'output' },
+            { text: '│    CGPA:      9.03 / 10.0', type: 'warning' },
+            { text: '│    Status:    Final-year student', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 2. Narayana Junior College', type: 'success' },
+            { text: '│    Program:   Intermediate (TSBIE - MPC)', type: 'output' },
+            { text: '│    Timeline:  2021 – 2023', type: 'output' },
+            { text: '│    Score:     97.1%', type: 'warning' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+      edu: { handler: () => commands.education.handler() },
+
+      skills: {
+        desc: 'Technical skills matrix',
+        handler: () => {
+          scrollToSection('skills');
+          return [
+            { text: '╭─ Technical Skills Matrix ─────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ [Generative AI / RAG]', type: 'success' },
+            { text: '│ RAG Pipelines, Agentic AI, LLM Integration, Workflow Orchestration,', type: 'output' },
+            { text: '│ Prompt Engineering, Vector Databases (Qdrant), Embeddings,', type: 'output' },
+            { text: '│ Hybrid Search (Dense + BM25), Reciprocal Rank Fusion, CrossEncoder, Ollama', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [AI / ML]', type: 'success' },
+            { text: '│ PyTorch, TensorFlow, Keras, Sentence-Transformers, OpenCV, BLIP, CLIP,', type: 'output' },
+            { text: '│ Computer Vision, NLP, Multimodal AI, Deep Learning', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [Languages]', type: 'success' },
+            { text: '│ Python, Java, C, JavaScript', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [Backend & APIs]', type: 'success' },
+            { text: '│ FastAPI, Flask, Node.js, Express.js, Spring Boot, REST APIs, Microservices', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [Frontend & Databases]', type: 'success' },
+            { text: '│ React.js, Socket.IO, MongoDB, SQLite', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [DevOps & Tools]', type: 'success' },
+            { text: '│ Git, GitHub, Docker, CI/CD, Agile/SDLC, Technical Documentation,', type: 'output' },
+            { text: '│ Code Reviews, Root-Cause Analysis', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [Core CS]', type: 'success' },
+            { text: '│ Data Structures & Algorithms, Object-Oriented Programming, DBMS, OS', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      projects: {
+        desc: 'List technical projects (AI top)',
+        handler: () => {
+          scrollToSection('projects');
+          return [
+            { text: '╭─ Selected Technical Projects (AI Projects Ranked First) ──────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ 1. Hybrid RAG System [FLAGSHIP GENERATIVE AI]', type: 'success' },
+            { text: '│    Stack: Python, FastAPI, Qdrant, Sentence-Transformers, BM25, Ollama', type: 'output' },
+            { text: '│    • Dense vector search (Qdrant) + BM25 keyword search merged via RRF', type: 'output' },
+            { text: '│    • Refined by cross-encoder reranking; streaming-ask via Ollama', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 2. Scene Solver: AI-Powered Crime Scene Analysis [COMPUTER VISION]', type: 'success' },
+            { text: '│    Stack: Python, BLIP, CLIP, Vision Transformers, PyTorch', type: 'output' },
+            { text: '│    • Automated scene classification, captioning, and evidence extraction', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 3. Vision-to-Story Generator [TECHNOVATE HACKATHON FINALIST]', type: 'warning' },
+            { text: '│    Stack: BLIP, Lightweight LLM, Multimodal AI, Python', type: 'output' },
+            { text: '│    • Combined BLIP captioning with lightweight LLM for real-time storytelling', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 4. NuclearGPT: Domain-Specific Scientific LLM [NLP / FINE-TUNING]', type: 'success' },
+            { text: '│    Stack: Transformer Models, Scientific NLP, PyTorch', type: 'output' },
+            { text: '│    • Fine-tuned transformer on domain-specific structured nuclear datasets', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 5. Synapse: Cognitive AI Workspace [AGENTIC AI]', type: 'success' },
+            { text: '│    Stack: Python, FastAPI, Vector Embeddings, LLM Integration', type: 'output' },
+            { text: '│    • Neural interface linking thoughts, context & multi-step agent reasoning', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ 6. LanShare: Offline LAN File Sharing Platform [NETWORKING]', type: 'info' },
+            { text: '│    Stack: React.js, Node.js, Express.js, SQLite, Socket.IO', type: 'output' },
+            { text: '│    • 128+ MB/s transfer speed, 0 ms message latency, 100% connection success', type: 'output' },
+            { text: '│    • Repo: https://github.com/preethamaleti/LanShare', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '│ 7. Ukusa: Contemporary African Art Platform [LIVE WEB APP]', type: 'info' },
+            { text: '│    Stack: JavaScript, CSS3, Responsive Design, Netlify', type: 'output' },
+            { text: '│    • Live site: https://ukusa.netlify.app/#gallery', type: 'warning' },
+            { text: '', type: 'empty' },
+            { text: '│ 8. FINCTRL AI: Intelligent Finance Controller', type: 'output' },
+            { text: '│    Stack: React.js, Node.js, Express.js, SQLite', type: 'output' },
+            { text: '│    • Repo: https://github.com/preethamaleti/finance-controller', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '│ 9. Vehicle Service Management System', type: 'output' },
+            { text: '│    Stack: Java, Spring Boot, MySQL, REST APIs', type: 'output' },
+            { text: '│    • Repo: https://github.com/preethamaleti/Vehicle-Service-Management-System', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      achievements: {
+        desc: 'Achievements, LeetCode & Certifications',
+        handler: () => {
+          scrollToSection('achievements');
+          return [
+            { text: '╭─ Achievements & Certifications ───────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ [HONORS]', type: 'warning' },
+            { text: '│ • Finalist, Technovate Hackathon: Vision-to-Story Generator (Multimodal AI)', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '│ [LEETCODE]', type: 'success' },
+            { text: '│ • Solved 200+ problems on LeetCode demonstrating strong DSA proficiency', type: 'output' },
+            { text: '│ • Profile URL: https://leetcode.com/u/y9QOkam4dO/', type: 'info' },
+            { text: '', type: 'empty' },
+            { text: '│ [CERTIFICATIONS]', type: 'success' },
+            { text: '│ • NPTEL Machine Learning', type: 'output' },
+            { text: '│ • NPTEL Programming, Data Structures and Algorithms using Python', type: 'output' },
+            { text: '│ • Advanced Learning Algorithms — DeepLearning.AI', type: 'output' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+      certs: { handler: () => commands.achievements.handler() },
+
+      contact: {
+        desc: 'Contact details and links',
+        handler: () => {
+          scrollToSection('contact');
+          return [
+            { text: '╭─ Contact & Profiles ──────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' },
+            { text: '│ Name       ALETI SAI PREETHAM REDDY', type: 'output' },
+            { text: '│ Location   Hyderabad, India', type: 'output' },
+            { text: '│ Phone      +91 9390887167', type: 'output' },
+            { text: '│ Email      preethamaleti2005@gmail.com', type: 'success' },
+            { text: '│ LinkedIn   https://www.linkedin.com/in/preetham-aleti/', type: 'info' },
+            { text: '│ LeetCode   https://leetcode.com/u/y9QOkam4dO/', type: 'info' },
+            { text: '│ GitHub     https://github.com/preethamaleti', type: 'info' },
+            { text: '│ Ukusa Live https://ukusa.netlify.app/#gallery', type: 'warning' },
+            { text: '', type: 'empty' },
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      neofetch: {
+        desc: 'Display system info and environment specs',
+        handler: () => [
+          { text: '          /\                 preetham@ngit', type: 'success' },
+          { text: '         /  \                ─────────────', type: 'success' },
+          { text: '        /\   \               OS: Arch Linux x86_64 / macOS', type: 'output' },
+          { text: '       /      \              Host: Neil Gogte Institute of Technology', type: 'output' },
+          { text: '      /   ,,   \             Kernel: 6.8.9-ai-rt-preetham', type: 'output' },
+          { text: '     /   |  |  -\            Uptime: 2023 - 2027 (Final Year)', type: 'output' },
+          { text: '    /_-""    ""-_\           Role: Software Engineering Intern @ Armour AI', type: 'output' },
+          { text: '                             Experience: May 2026 – Present', type: 'output' },
+          { text: '                             Academic CGPA: 9.03 / 10.0', type: 'warning' },
+          { text: '                             LeetCode: 200+ Solved', type: 'info' },
+          { text: '                             Hackathon: Technovate Finalist', type: 'warning' },
+          { text: '                             Primary Stack: Python, FastAPI, Qdrant, PyTorch', type: 'output' },
+          { text: '                             Shell: zsh / bash', type: 'output' },
+          { text: '                             Terminal: web-vterm 2.0 (CRT phosphor mode)', type: 'output' },
+          { text: '                             Memory: 16384MiB / 32768MiB', type: 'output' },
+          { text: '                             Status: Open for Generative AI / SWE Roles', type: 'success' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      ls: {
+        desc: 'List workspace directory files',
+        handler: () => [
+          { text: 'total 64', type: 'muted' },
+          { text: '-rw-r--r--  1 preetham preetham  2.1K  Oct 27 09:00  README.md', type: 'output' },
+          { text: '-rw-r--r--  1 preetham preetham  4.8K  Oct 27 09:00  resume.txt', type: 'success' },
+          { text: 'drwxr-xr-x  9 preetham preetham   288  Oct 27 09:00  projects/', type: 'info' },
+          { text: 'drwxr-xr-x  7 preetham preetham   224  Oct 27 09:00  skills/', type: 'info' },
+          { text: '-rwxr-xr-x  1 preetham preetham  1.2K  Oct 27 09:00  hire_preetham.sh*', type: 'warning' },
+          { text: '-rw-r--r--  1 preetham preetham   512  Oct 27 09:00  contact.json', type: 'output' },
+          { text: '', type: 'empty' },
+          { text: 'Tip: Use "cat resume.txt" or "cat projects/hybrid-rag.md" to inspect files.', type: 'muted' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      cat: {
+        desc: 'Display contents of file: cat <file>',
+        handler: (args) => {
+          if (!args || args.length === 0) {
+            return [{ text: 'cat: missing file operand. Example: cat resume.txt', type: 'error' }, { text: '', type: 'empty' }];
+          }
+          const file = args[0].toLowerCase();
+          if (file === 'resume.txt' || file === 'resume.md' || file === 'resume') {
+            return [
+              { text: '╭─ ALETI SAI PREETHAM REDDY ───────────────────────────────────', type: 'header' },
+              { text: '│ Hyderabad, India | +91 9390887167 | preethamaleti2005@gmail.com', type: 'output' },
+              { text: '│ LinkedIn: https://www.linkedin.com/in/preetham-aleti/', type: 'info' },
+              { text: '│ GitHub:   https://github.com/preethamaleti', type: 'info' },
+              { text: '│ LeetCode: https://leetcode.com/u/y9QOkam4dO/ (200+ Solved)', type: 'info' },
+              { text: '', type: 'empty' },
+              { text: '│ PROFESSIONAL SUMMARY:', type: 'header' },
+              { text: '│ Final-year B.Tech Computer Science (AI & Machine Learning) student and', type: 'output' },
+              { text: '│ Software Engineering Intern building agentic workflow platforms, Generative AI', type: 'output' },
+              { text: '│ applications, Retrieval-Augmented Generation (RAG) pipelines, and backend', type: 'output' },
+              { text: '│ REST APIs. Seeking a Generative AI / Software Engineer role.', type: 'output' },
+              { text: '', type: 'empty' },
+              { text: '│ EXPERIENCE: Armour AI | Software Engineering Intern (May 2026 – Present)', type: 'success' },
+              { text: '│ • Building an agentic workflow management platform with dedicated apps', type: 'output' },
+              { text: '│ • Developed backend services & REST APIs for workflow orchestration & LLM RAG', type: 'output' },
+              { text: '│ • Diagnosed & resolved execution failures through root-cause analysis', type: 'output' },
+              { text: '', type: 'empty' },
+              { text: '│ EDUCATION: Neil Gogte Institute of Technology (2023 – 2027)', type: 'success' },
+              { text: '│ • B.Tech in AI & ML | CGPA: 9.03 / 10.0', type: 'output' },
+              { text: '│ • Narayana Junior College (2021 – 2023) | Score: 97.1%', type: 'output' },
+              { text: '', type: 'empty' },
+              { text: '│ ACHIEVEMENTS & CERTIFICATIONS:', type: 'header' },
+              { text: '│ • Finalist, Technovate Hackathon: Vision-to-Story Generator', type: 'warning' },
+              { text: '│ • Solved 200+ problems on LeetCode', type: 'warning' },
+              { text: '│ • NPTEL Machine Learning; NPTEL Python DSA; DeepLearning.AI Advanced ML', type: 'output' },
+              { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('hybrid-rag')) {
+            return [
+              { text: '# Hybrid RAG System', type: 'header' },
+              { text: 'Tech: Python, FastAPI, Qdrant, Sentence-Transformers, BM25, Ollama', type: 'info' },
+              { text: '• Dense vector search (Qdrant) + BM25 keyword search merged via RRF.', type: 'output' },
+              { text: '• Cross-encoder reranking for elevated precision and low hallucination.', type: 'output' },
+              { text: '• PDF ingestion with page-level chunking and real-time Ollama streaming.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('scene-solver')) {
+            return [
+              { text: '# Scene Solver: AI-Powered Crime Scene Analysis', type: 'header' },
+              { text: 'Tech: Python, BLIP, CLIP, Vision Transformers, PyTorch', type: 'info' },
+              { text: '• Multimodal pipeline integrating BLIP & CLIP for scene classification.', type: 'output' },
+              { text: '• Evidence extraction and structured automated report generation.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('lanshare')) {
+            return [
+              { text: '# LanShare: Offline LAN File Sharing Platform', type: 'header' },
+              { text: 'Tech: React.js, Node.js, Express.js, SQLite, Socket.IO', type: 'info' },
+              { text: '• 128+ MB/s transfer speed, 0 ms message latency, 100% connection success.', type: 'success' },
+              { text: '• Real-time messaging, host authentication, chunked transfer with checksums.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('vision-to-story')) {
+            return [
+              { text: '# Vision-to-Story Generator', type: 'header' },
+              { text: 'Tech: BLIP, Lightweight LLM, Multimodal AI | Technovate Hackathon Finalist', type: 'warning' },
+              { text: '• Developed a multimodal pipeline combining BLIP captioning with a lightweight LLM.', type: 'output' },
+              { text: '• Generates coherent narrative stories from scene images.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('nucleargpt')) {
+            return [
+              { text: '# NuclearGPT: Domain-Specific Scientific LLM', type: 'header' },
+              { text: 'Tech: Transformer Models, Scientific NLP, PyTorch', type: 'info' },
+              { text: '• Fine-tuned transformer on structured nuclear-domain datasets.', type: 'output' },
+              { text: '• Elevates domain-specific text generation precision.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('synapse')) {
+            return [
+              { text: '# Synapse: Cognitive AI Workspace', type: 'header' },
+              { text: 'Tech: Python, FastAPI, Vector Embeddings, LLM Integration', type: 'info' },
+              { text: '• Neural cognitive workspace linking ideas, context, and multi-step agent graphs.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('finctrl') || file.includes('finance')) {
+            return [
+              { text: '# FINCTRL AI: Intelligent Finance Controller', type: 'header' },
+              { text: 'Tech: React.js, Node.js, Express.js, SQLite', type: 'info' },
+              { text: '• Personal finance analytics with automated anomaly alerts.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file.includes('vehicle')) {
+            return [
+              { text: '# Vehicle Service Management System', type: 'header' },
+              { text: 'Tech: Java, Spring Boot, MySQL, REST APIs', type: 'info' },
+              { text: '• Enterprise service tracking, maintenance scheduling, and billing.', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file === 'readme.md' || file === 'readme') {
+            return [
+              { text: '# ALETI SAI PREETHAM REDDY - Portfolio Terminal', type: 'header' },
+              { text: 'Engineering portfolio styled after a classic Linux workstation.', type: 'output' },
+              { text: 'Author: Aleti Sai Preetham Reddy (NGIT 2027, Armour AI)', type: 'info' },
+              { text: 'Try commands: neofetch, projects, skills, sudo hire-me', type: 'success' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (file === 'contact.json') {
+            return [
+              { text: '{', type: 'output' },
+              { text: '  "name": "ALETI SAI PREETHAM REDDY",', type: 'output' },
+              { text: '  "email": "preethamaleti2005@gmail.com",', type: 'output' },
+              { text: '  "phone": "+91 9390887167",', type: 'output' },
+              { text: '  "linkedin": "https://www.linkedin.com/in/preetham-aleti/",', type: 'output' },
+              { text: '  "github": "https://github.com/preethamaleti",', type: 'output' },
+              { text: '  "leetcode": "https://leetcode.com/u/y9QOkam4dO/"', type: 'output' },
+              { text: '}', type: 'output' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          return [
+            { text: `cat: ${file}: No such file or directory`, type: 'error' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      whoami: {
+        desc: 'Print active user profile',
+        handler: () => [
+          { text: 'guest@preetham-aleti', type: 'success' },
+          { text: 'Viewing workspace of: ALETI SAI PREETHAM REDDY', type: 'output' },
+          { text: 'Neil Gogte Institute of Technology • CGPA 9.03 • Armour AI Intern', type: 'info' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      pwd: {
+        desc: 'Print current directory',
+        handler: () => [
+          { text: '/home/preetham/portfolio/production', type: 'output' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      date: {
+        desc: 'Print system date and timestamp',
+        handler: () => [
+          { text: new Date().toString(), type: 'info' },
+          { text: '', type: 'empty' }
+        ]
+      },
+
+      theme: {
+        desc: 'Cycle terminal accent color',
+        handler: () => {
+          cycleTerminalTheme();
+          return [];
+        }
+      },
+
+      clear: {
+        desc: 'Clear terminal scrollback buffer',
+        handler: () => {
+          clearTerminalBuffer();
+          return [];
+        }
+      },
+
+      sudo: {
+        desc: 'Execute administrative task',
+        handler: (args) => {
+          if (args && args.join(' ').toLowerCase() === 'hire-me') {
+            return [
+              { text: '╭─ [ADMIN] MISSION ACCEPTED: HIRE CANDIDATE ──────────────────', type: 'success' },
+              { text: '', type: 'empty' },
+              { text: '│ Candidate: ALETI SAI PREETHAM REDDY', type: 'header' },
+              { text: '│ College:   Neil Gogte Institute of Technology (2023–2027) | CGPA: 9.03', type: 'output' },
+              { text: '│ Role:      Software Engineering Intern @ Armour AI', type: 'output' },
+              { text: '│ Skills:    Generative AI, RAG Pipelines, FastAPI, Qdrant, PyTorch', type: 'output' },
+              { text: '│ LeetCode:  200+ Solved (https://leetcode.com/u/y9QOkam4dO/)', type: 'output' },
+              { text: '│ Contact:   preethamaleti2005@gmail.com | +91 9390887167', type: 'warning' },
+              { text: '', type: 'empty' },
+              { text: '│ [✓] Offer pipeline dispatched! Please send email or schedule an interview.', type: 'success' },
+              { text: '╰───────────────────────────────────────────────────────────────', type: 'success' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          return [
+            { text: 'sudo: permission denied. Try "sudo hire-me"', type: 'error' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      'hire-me': {
+        desc: 'Direct shortcut to hire candidate',
+        handler: () => commands.sudo.handler(['hire-me'])
+      },
+      hire: {
+        desc: 'Direct shortcut to hire candidate',
+        handler: () => commands.sudo.handler(['hire-me'])
+      },
+      resume: {
+        desc: 'Print full resume',
+        handler: () => commands.cat.handler(['resume.txt'])
+      },
+      cls: {
+        desc: 'Clear terminal screen',
+        handler: () => commands.clear.handler()
+      },
+      history: {
+        desc: 'Show executed command history',
+        handler: () => {
+          if (!commandHistory.length) {
+            return [{ text: 'No commands in history yet.', type: 'muted' }, { text: '', type: 'empty' }];
+          }
+          return [
+            { text: '╭─ Command History ─────────────────────────────────────────────', type: 'header' },
+            ...commandHistory.map((cmd, idx) => ({ text: `│  ${idx + 1}  ${cmd}`, type: 'output' })),
+            { text: '╰───────────────────────────────────────────────────────────────', type: 'header' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+      socials: {
+        desc: 'Show social profiles',
+        handler: () => commands.contact.handler()
+      },
+      links: {
+        desc: 'Show profile links',
+        handler: () => commands.contact.handler()
+      },
+      status: {
+        desc: 'Show current professional availability',
+        handler: () => [
+          { text: 'Status: AVAILABLE FOR GENERATIVE AI & BACKEND ROLES', type: 'success' },
+          { text: 'Current: Software Engineering Intern @ Armour AI', type: 'output' },
+          { text: 'Education: Neil Gogte Institute of Technology (CGPA 9.03)', type: 'output' },
+          { text: '', type: 'empty' }
+        ]
+      }
+    };
+
+    // Append formatted lines to terminal
+    function appendLines(lines) {
+      lines.forEach(item => {
+        const lineEl = document.createElement('div');
+        lineEl.className = `term-line ${item.type || 'output'}`;
+        
+        // Check for links
+        const urlMatch = item.text.match(/(https?:\/\/[^\s\)]+)/);
+        if (urlMatch) {
+          const url = urlMatch[1];
+          const prefix = item.text.substring(0, urlMatch.index);
+          const suffix = item.text.substring(urlMatch.index + url.length);
+          lineEl.innerHTML = escapeHtml(prefix) + `<a href="${url}" target="_blank" rel="noopener">${url}</a>` + escapeHtml(suffix);
+        } else {
+          lineEl.textContent = item.text;
+        }
+        
+        terminalBody.appendChild(lineEl);
+      });
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function clearTerminalBuffer() {
+      terminalBody.innerHTML = '';
+      initWelcomeBanner();
+    }
+
+    function executeCommand(rawInput) {
+      const trimmed = rawInput.trim();
+      if (!trimmed) return;
+
+      // Echo command line
+      const echoDiv = document.createElement('div');
+      echoDiv.className = 'term-line prompt-line';
+      echoDiv.innerHTML = `<span class="term-prompt-user">preetham</span><span style="color: #71717a;">@</span><span class="term-prompt-user">ngit</span><span style="color: #71717a;">:</span><span class="term-prompt-path">~</span><span class="term-prompt-symbol">$</span> <span class="term-cmd-text">${escapeHtml(trimmed)}</span>`;
+      terminalBody.appendChild(echoDiv);
+
+      // Save to history
+      commandHistory.push(trimmed);
+      historyIndex = commandHistory.length;
+
+      const parts = trimmed.split(/\s+/);
+      const cmdName = parts[0].toLowerCase();
+      const args = parts.slice(1);
+
+      if (commands[cmdName]) {
+        const result = commands[cmdName].handler(args);
+        if (result && result.length) {
+          appendLines(result);
+        }
+      } else {
+        appendLines([
+          { text: `bash: ${cmdName}: command not found. Type 'help' for available commands.`, type: 'error' },
+          { text: '', type: 'empty' }
+        ]);
+      }
+
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    function runInteractiveCommand(cmd) {
+      terminalInput.value = '';
+      executeCommand(cmd);
+      terminalInput.focus();
+    }
+
+    function focusTerminalInput() {
+      terminalInput.focus();
+    }
+
+    // Key event listeners for input
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = terminalInput.value;
+        terminalInput.value = '';
+        executeCommand(val);
+      } else if (e.key === 'l' && e.ctrlKey) {
+        e.preventDefault();
+        clearTerminalBuffer();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          terminalInput.value = commandHistory[historyIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          terminalInput.value = commandHistory[historyIndex];
+        } else {
+          historyIndex = commandHistory.length;
+          terminalInput.value = '';
+        }
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const current = terminalInput.value.trim().toLowerCase();
+        if (current) {
+          const match = Object.keys(commands).find(c => c.startsWith(current));
+          if (match) {
+            terminalInput.value = match;
+          }
+        }
+      }
+    });
+
+    // Toast notification
+    function copyToClipboard(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toastMsg');
+        toastMsg.textContent = message || 'Copied to clipboard!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2400);
+      }).catch(err => {
+        console.error('Failed to copy', err);
+      });
+    }
+
+    // Welcome Banner Initialization
+    function initWelcomeBanner() {
+      appendLines([
+        { text: 'Linux workstation v6.8.9-ai (ngit-x86_64) • Initializing terminal session...', type: 'muted' },
+        { text: '', type: 'empty' },
+        { text: '  ██████╗ ██████╗ ███████╗███████╗████████╗██╗  ██╗ █████╗ ███╗   ███╗', type: 'success' },
+        { text: '  ██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║  ██║██╔══██╗████╗ ████║', type: 'success' },
+        { text: '  ██████╔╝██████╔╝█████╗  █████╗     ██║   ███████║███████║██╔████╔██║', type: 'success' },
+        { text: '  ██╔═══╝ ██╔══██╗██╔══╝  ██╔══╝     ██║   ██╔══██║██╔══██║██║╚██╔╝██║', type: 'success' },
+        { text: '  ██║     ██║  ██║███████╗███████╗   ██║   ██║  ██║██║  ██║██║ ╚═╝ ██║', type: 'success' },
+        { text: '  ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝', type: 'success' },
+        { text: '', type: 'empty' },
+        { text: '  Welcome to Aleti Sai Preetham Reddy\'s interactive engineering portfolio!', type: 'header' },
+        { text: '  Neil Gogte Institute of Technology | Armour AI Intern | Hyderabad, India', type: 'info' },
+        { text: '', type: 'empty' },
+        { text: '  Type "help" to view commands, or click the quick command pills above.', type: 'warning' },
+        { text: '  Popular commands: "neofetch", "projects", "skills", "cat resume.txt"', type: 'output' },
+        { text: '', type: 'empty' }
+      ]);
+    }
+
+    // Auto-initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initWelcomeBanner();
+    });
+  </script>
+
+</body>
+</html>
