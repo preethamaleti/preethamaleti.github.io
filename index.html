@@ -613,6 +613,44 @@
       border-radius: 4px;
     }
 
+        .docker-snippet {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(13, 183, 237, 0.05);
+      border: 1px solid rgba(13, 183, 237, 0.22);
+      padding: 7px 11px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #7dd3fc;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      margin-top: 6px;
+    }
+    .docker-snippet:hover {
+      background: rgba(13, 183, 237, 0.12);
+      border-color: rgba(13, 183, 237, 0.45);
+      color: #ffffff;
+    }
+    .docker-snippet code {
+      font-family: inherit;
+      color: inherit;
+      letter-spacing: -0.01em;
+    }
+    .docker-snippet .copy-hint {
+      font-size: 10.5px;
+      color: var(--text3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition-fast);
+    }
+    .docker-snippet:hover .copy-hint {
+      color: var(--terminal-green);
+    }
+
     .project-cli-trigger {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -1423,6 +1461,9 @@
               <div class="project-card__top">
                 <div class="project-badge-pill">High-Performance Networking</div>
                 <div class="project-links">
+                  <a href="https://hub.docker.com/r/preethamaleti/lanshare" target="_blank" rel="noopener" class="project-link-icon" title="View on Docker Hub">
+                    <i class="fab fa-docker" style="color: #0db7ed;"></i>
+                  </a>
                   <a href="https://github.com/preethamaleti/LanShare" target="_blank" rel="noopener" class="project-link-icon" title="View GitHub Repository">
                     <i class="fab fa-github"></i>
                   </a>
@@ -1437,15 +1478,31 @@
                   Implemented secure chunked file transfer with integrity verification; achieved 128+ MB/s transfer speed, 0 ms message latency, and 100% connection success.
                 </li>
               </ul>
+
+              <!-- Docker Pull One-Click Copy -->
+              <div class="docker-snippet" onclick="copyToClipboard('docker pull preethamaleti/lanshare:latest', 'Copied: docker pull preethamaleti/lanshare:latest')" title="Click to copy docker command">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i class="fab fa-docker" style="color: #0db7ed; font-size: 13px;"></i>
+                  <code>docker pull preethamaleti/lanshare:latest</code>
+                </div>
+                <span class="copy-hint"><i class="fas fa-copy"></i> copy</span>
+              </div>
+
               <div class="project-stack">
+                <span class="stack-tag"><i class="fab fa-docker" style="color: #0db7ed;"></i> Docker</span>
                 <span class="stack-tag">React.js</span>
                 <span class="stack-tag">Node.js</span>
                 <span class="stack-tag">Express.js</span>
                 <span class="stack-tag">SQLite</span>
                 <span class="stack-tag">Socket.IO</span>
               </div>
-              <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/lanshare.md')">
-                <i class="fas fa-terminal"></i> <span>cat projects/lanshare.md</span>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px;">
+                <div class="project-cli-trigger" onclick="runInteractiveCommand('cat projects/lanshare.md')">
+                  <i class="fas fa-terminal"></i> <span>cat projects/lanshare.md</span>
+                </div>
+                <div class="project-cli-trigger" onclick="runInteractiveCommand('docker pull preethamaleti/lanshare:latest')">
+                  <i class="fab fa-docker" style="color: #0db7ed;"></i> <span>docker pull</span>
+                </div>
               </div>
             </div>
 
@@ -1936,6 +1993,7 @@
           { text: '│  about          Display biographical summary & background', type: 'output' },
           { text: '│  skills         Show exact categorized tech stack & tools', type: 'output' },
           { text: '│  projects       List technical AI & software projects', type: 'output' },
+          { text: '│  docker pull    Pull Docker images (preethamaleti/lanshare:latest)', type: 'output' },
           { text: '│  experience     Show internship experience at Armour AI', type: 'output' },
           { text: '│  education      Show Neil Gogte Institute of Tech & CGPA', type: 'output' },
           { text: '│  achievements   Show LeetCode 200+ & Hackathon honors', type: 'output' },
@@ -2274,9 +2332,12 @@
           if (file.includes('lanshare')) {
             return [
               { text: '# LanShare: Offline LAN File Sharing Platform', type: 'header' },
-              { text: 'Tech: React.js, Node.js, Express.js, SQLite, Socket.IO', type: 'info' },
+              { text: 'Tech: Docker, React.js, Node.js, Express.js, SQLite, Socket.IO', type: 'info' },
               { text: '• 128+ MB/s transfer speed, 0 ms message latency, 100% connection success.', type: 'success' },
               { text: '• Real-time messaging, host authentication, chunked transfer with checksums.', type: 'output' },
+              { text: '• Docker Pull: docker pull preethamaleti/lanshare:latest', type: 'warning' },
+              { text: '• Docker Hub:  https://hub.docker.com/r/preethamaleti/lanshare', type: 'info' },
+              { text: '• GitHub Repo: https://github.com/preethamaleti/LanShare', type: 'info' },
               { text: '', type: 'empty' }
             ];
           }
@@ -2414,6 +2475,37 @@
           }
           return [
             { text: 'sudo: permission denied. Try "sudo hire-me"', type: 'error' },
+            { text: '', type: 'empty' }
+          ];
+        }
+      },
+
+      docker: {
+        desc: 'Pull or inspect Docker images: docker pull <image>',
+        handler: (args) => {
+          if (!args || args.length === 0 || args[0] === 'help') {
+            return [
+              { text: 'Usage: docker pull <image>', type: 'output' },
+              { text: 'Available image: docker pull preethamaleti/lanshare:latest', type: 'info' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          if (args[0] === 'pull') {
+            const img = args[1] || 'preethamaleti/lanshare:latest';
+            return [
+              { text: `Using default tag: latest`, type: 'muted' },
+              { text: `latest: Pulling from preethamaleti/lanshare`, type: 'output' },
+              { text: `2b0d2685ef0a: Pull complete [=========================>] 42.1MB/42.1MB`, type: 'info' },
+              { text: `8a7c29d10e53: Pull complete [=========================>] 14.3MB/14.3MB`, type: 'info' },
+              { text: `Digest: sha256:7f9a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a`, type: 'muted' },
+              { text: `Status: Downloaded newer image for ${img}`, type: 'success' },
+              { text: `docker.io/${img}`, type: 'success' },
+              { text: `[✓] LanShare offline container ready! 128+ MB/s transfer speed enabled.`, type: 'warning' },
+              { text: '', type: 'empty' }
+            ];
+          }
+          return [
+            { text: `docker: '${args[0]}' is not a docker command. Try 'docker pull preethamaleti/lanshare:latest'`, type: 'error' },
             { text: '', type: 'empty' }
           ];
         }
